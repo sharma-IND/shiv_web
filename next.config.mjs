@@ -2,10 +2,10 @@ import mdx from "@next/mdx";
 
 const withMDX = mdx({
   extension: /\.mdx?$/,
-  options: {},
 });
 
 const nextConfig = {
+  // ✅ THIS IS THE CRITICAL LINE THAT CREATES /out
   output: "export",
 
   images: {
@@ -13,12 +13,6 @@ const nextConfig = {
   },
 
   pageExtensions: ["ts", "tsx", "md", "mdx"],
-  transpilePackages: ["next-mdx-remote"],
-
-  sassOptions: {
-    compiler: "modern",
-    silenceDeprecations: ["legacy-js-api"],
-  },
 };
 
 export default withMDX(nextConfig);
