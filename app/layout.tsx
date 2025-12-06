@@ -16,7 +16,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-// Font files can be colocated inside of `pages`
 const fontHeading = localFont({
   src: "../assets/fonts/CalSans-SemiBold.woff2",
   variable: "--font-heading",
@@ -96,9 +95,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  // ✅ SAFE: No crash in dev if missing
   const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID;
-  if (!GA_ID) {
-    throw new Error("Missing Google Analytics ID");
+
+  if (!GA_ID && process.env.NODE_ENV === "production") {
+    console.warn("⚠️ Google Analytics ID is missing in production!");
   }
 
   return (
@@ -131,7 +132,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ModalProvider />
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId={GA_ID} />
+
+      {/* ✅ Load GA only if ID exists */}
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
