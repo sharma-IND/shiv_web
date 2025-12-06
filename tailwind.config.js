@@ -79,6 +79,8 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+
+  // ✅ CLEAN SAFE LIST — No regex warning
   safelist: [
     "dark",
     "retro",
@@ -86,9 +88,5 @@ module.exports = {
     "paper",
     "aurora",
     "synthwave",
-    {
-      pattern:
-        /^(.*?)(dark|retro|cyberpunk|paper|aurora|synthwave)([:.])(.*?)$/,
-    },
   ],
 };
